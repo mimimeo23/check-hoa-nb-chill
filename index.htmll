@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Hoa NB</title>
+</head>
+<body>
+  <h1>Hoa NB</h1>
+
+  <h2>Thành viên</h2>
+  <ul>
+    <li>Cún</li>
+    <li>Thành viên 1</li>
+    <li>Thành viên 2</li>
+  </ul>
+</body>
+</html>
