@@ -14,7 +14,7 @@ body{
 
 .box{
     background:white;
-    max-width:600px;
+    max-width:700px;
     margin:auto;
     padding:25px;
     border-radius:20px;
@@ -28,16 +28,16 @@ h1{
 
 input{
     width:100%;
-    padding:10px;
-    margin:15px 0;
+    padding:12px;
     border-radius:10px;
     border:1px solid #ccc;
+    margin-bottom:20px;
 }
 
 li{
-    cursor:pointer;
-    margin:10px 0;
     font-size:20px;
+    margin:10px 0;
+    cursor:pointer;
 }
 
 li:hover{
@@ -47,8 +47,8 @@ li:hover{
 #info{
     margin-top:20px;
     padding:15px;
-    background:#fff0f5;
     border-radius:10px;
+    background:#fff0f5;
 }
 </style>
 </head>
@@ -57,30 +57,30 @@ li:hover{
 
 <div class="box">
 
-<h1>🌸 Hoa NB 🌸</h1>
+<h1>🌸 HOA NB 🌸</h1>
 
 <input
 type="text"
 id="search"
-placeholder="Tìm tên hoa..."
+placeholder="Nhập tên hoa..."
 onkeyup="timHoa()">
 
-<h2>🌼 Danh sách hoa</h2>
+<h3>Danh sách hoa</h3>
 
-<ul id="hoaList">
-<li onclick="hienThongTin('Hoa hồng là biểu tượng của tình yêu.')">🌹 Hoa hồng</li>
+<ul>
+<li onclick="hienThongTin('🌹 Hoa hồng<br>👤 Thành viên: Cún')">🌹 Hoa hồng</li>
 
-<li onclick="hienThongTin('Hoa cúc tượng trưng cho sự trường thọ.')">🌼 Hoa cúc</li>
+<li onclick="hienThongTin('🌼 Hoa cúc<br>👤 Thành viên: Lan')">🌼 Hoa cúc</li>
 
-<li onclick="hienThongTin('Hoa ly mang ý nghĩa thanh cao.')">🤍 Hoa ly</li>
+<li onclick="hienThongTin('🤍 Hoa ly<br>👤 Thành viên: Mai')">🤍 Hoa ly</li>
 
-<li onclick="hienThongTin('Hoa hướng dương luôn hướng về mặt trời.')">🌻 Hoa hướng dương</li>
+<li onclick="hienThongTin('🌻 Hoa hướng dương<br>👤 Thành viên: An')">🌻 Hoa hướng dương</li>
 
-<li onclick="hienThongTin('Hoa lan tượng trưng cho sự sang trọng.')">💜 Hoa lan</li>
+<li onclick="hienThongTin('💜 Hoa lan<br>👤 Thành viên: Ngọc')">💜 Hoa lan</li>
 </ul>
 
 <div id="info">
-Bấm vào tên hoa để xem thông tin.
+Nhập tên hoa hoặc bấm vào tên hoa để xem thành viên.
 </div>
 
 </div>
@@ -96,18 +96,21 @@ const dsHoa = {
 };
 
 function timHoa(){
-let input=document.getElementById("search").value.toLowerCase().trim();
-let info=document.getElementById("info");
+let text = document.getElementById("search").value.toLowerCase().trim();
 
-if(dsHoa[input]){
-info.innerHTML=dsHoa[input];
+if(dsHoa[text]){
+document.getElementById("info").innerHTML = dsHoa[text];
+}else if(text === ""){
+document.getElementById("info").innerHTML =
+"Nhập tên hoa hoặc bấm vào tên hoa để xem thành viên.";
 }else{
-info.innerHTML="Không tìm thấy hoa hoặc thành viên";
+document.getElementById("info").innerHTML =
+"❌ Không tìm thấy hoa";
 }
 }
 
 function hienThongTin(noidung){
-document.getElementById("info").innerHTML=noidung;
+document.getElementById("info").innerHTML = noidung;
 }
 
 </script>
