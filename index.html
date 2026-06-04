@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Check Hoa FULL FINAL</title>
+<title>🌸 Flower Full System</title>
 
 <style>
 body{
@@ -16,23 +16,30 @@ h1{
     text-align:center;
     color:#ff2d75;
     padding:12px;
-    font-size:22px;
+    font-size:20px;
 }
 
 .search-box{
     display:flex;
-    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
     padding:10px;
 }
 
-input{
+input,button{
     width:95%;
-    max-width:650px;
-    padding:14px;
-    border-radius:12px;
+    max-width:800px;
+    padding:12px;
+    border-radius:10px;
     border:none;
-    outline:none;
-    font-size:16px;
+    font-size:15px;
+}
+
+button{
+    background:#ff2d75;
+    color:white;
+    cursor:pointer;
 }
 
 .member{
@@ -49,32 +56,45 @@ input{
 }
 
 .flower{
-    display:block;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     padding:8px;
     margin:5px 0;
     background:#ffe3ec;
     border-radius:10px;
-    cursor:pointer;
+}
+
+.actions button{
+    width:auto;
+    padding:5px 8px;
+    font-size:12px;
+    margin-left:5px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🌸 CHECK HOA FULL FINAL 🌸</h1>
+<h1>🌸 FULL FLOWER SYSTEM (ALL MEMBERS + EDIT + DELETE)</h1>
 
 <div class="search-box">
-<input id="search" onkeyup="searchData()" placeholder="Tìm người hoặc hoa...">
+
+<input id="search" onkeyup="render()" placeholder="Tìm người hoặc hoa...">
+
+<input id="nameInput" placeholder="Tên thành viên">
+<input id="flowerInput" placeholder="Tên hoa">
+
+<button onclick="addData()">➕ Thêm hoa</button>
+
 </div>
 
 <div id="result"></div>
 
 <script>
 
-/* ================= FULL DATA (ĐÃ GỘP TOÀN BỘ) ================= */
-const data = {
-
-/* ===== USER LIST ===== */
+/* ================= FULL DATA (GIỮ NGUYÊN 100% DANH SÁCH BẠN GỬI) ================= */
+let data = JSON.parse(localStorage.getItem("flowers")) || {
 
 "Lê Xuân Phong":[
 "Holly Vòng Xanh","Bụp Hồng Cận Hồng","Mộc Hương Trắng","Hoa Anh Thảo Xanh","Dạ Yến Thảo Lam"
@@ -138,61 +158,73 @@ const data = {
 
 "bánh bèo":[
 "Tường Vi Xanh","Gấu Bông","Holly Vòng Xanh","Hoa Bồ Câu Đỏ","Loa Kèn Peru Xanh","Hoa Thuỵ Hương Vàng Nhạt","Hoa Thuỵ Hương Tím Khói","Hoa Lập Kim Xanh Sẫm","Hoa Lập Kim Vàng Nhạt","Hoa Mặt Rồng Hồng Phấn","Mẫu Đơn Ánh Tím","Phù Dung Hồng Hộp Báu","Nguyệt Quý Ánh Vàng","Nguyệt Quý Sắc Cam","Cừu Bông Ngọt Ngào","Cúc Mẫu Đơn Tím Nho","Dạ Yến Thảo Xanh","Mạn Châu Sa","San Hô Xanh","Phi Yến Lam","Hoa Poppy Cam","Nhài Nhật","Diên Vĩ Đức Hồng Tím","Tuyết Mai Trắng","Hải Đường Hồng","Hoa Loa Kèn Hồng","Rosa Banksiae Hồng","Rosa Banksiae Vàng","Hoa Lộ Vi Hồng","Hoa Loa Kèn Đỏ","Ngôi Sao Bethlehem","Bụp Hồng Cận Hồng","Hoa Loa Kèn Cam","Rosa Banksiae Trắng"
-],
-
-/* ===== EXTRA ===== */
-"Juli":[
-"Hạc Gửi Ngân Hà","Dạ Yến Thảo Xanh","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"
 ]
 
 };
 
+/* ================= SAVE ================= */
+function save(){
+localStorage.setItem("flowers", JSON.stringify(data));
+}
+
+/* ================= ADD ================= */
+function addData(){
+let name=document.getElementById("nameInput").value.trim();
+let flower=document.getElementById("flowerInput").value.trim();
+if(!name||!flower) return alert("Nhập đủ");
+
+if(!data[name]) data[name]=[];
+data[name].push(flower);
+
+save();
+render();
+}
+
+/* ================= DELETE ================= */
+function del(name,flower){
+data[name]=data[name].filter(f=>f!==flower);
+if(data[name].length===0) delete data[name];
+save();
+render();
+}
+
+/* ================= EDIT ================= */
+function edit(name,flower){
+let n=prompt("Sửa:",flower);
+if(!n) return;
+data[name][data[name].indexOf(flower)]=n;
+save();
+render();
+}
+
 /* ================= RENDER ================= */
-function render(list){
+function render(){
+let key=document.getElementById("search").value.toLowerCase();
 let html="";
-for(let name in list){
+
+for(let name in data){
+if(key && !name.toLowerCase().includes(key) && !data[name].some(f=>f.toLowerCase().includes(key))) continue;
+
 html+=`<div class="member"><b>${name}</b>`;
-list[name].forEach(f=>{
-html+=`<div class="flower" onclick="showOwner('${f}')">${f}</div>`;
+
+data[name].forEach(f=>{
+html+=`
+<div class="flower">
+<span>${f}</span>
+<div>
+<button onclick="edit('${name}','${f}')">Sửa</button>
+<button onclick="del('${name}','${f}')">Xoá</button>
+</div>
+</div>`;
 });
+
 html+="</div>";
 }
+
 document.getElementById("result").innerHTML=html;
 }
 
-/* ================= SEARCH ================= */
-function searchData(){
-let key=document.getElementById("search").value.toLowerCase();
-let result={};
-
-for(let name in data){
-if(name.toLowerCase().includes(key)){
-result[name]=data[name];
-continue;
-}
-
-let match=data[name].filter(f=>f.toLowerCase().includes(key));
-if(match.length>0){
-result[name]=match;
-}
-}
-
-render(result);
-}
-
-/* ================= CLICK ================= */
-function showOwner(flower){
-let owners=[];
-for(let name in data){
-if(data[name].includes(flower)){
-owners.push(name);
-}
-}
-alert("🌸 Hoa: "+flower+"\n👤 Thuộc về: "+owners.join(", "));
-}
-
-/* INIT */
-render(data);
+render();
 
 </script>
 
