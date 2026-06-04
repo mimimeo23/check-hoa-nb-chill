@@ -10,19 +10,18 @@ body{
     margin:0;
     font-family: Arial;
     background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-    min-height:100vh;
     display:flex;
     justify-content:center;
     padding:20px;
 }
 
-.box{
+.container{
     width:100%;
     max-width:900px;
     background:white;
-    border-radius:25px;
-    padding:25px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 h1{
@@ -32,48 +31,36 @@ h1{
 
 input{
     width:100%;
-    padding:15px;
-    border-radius:15px;
-    border:1px solid #ddd;
+    padding:12px;
     font-size:16px;
+    border-radius:12px;
+    border:1px solid #ddd;
     outline:none;
-    box-sizing:border-box;
 }
 
 input:focus{
     border-color:#ff2d75;
-    box-shadow:0 0 10px rgba(255,45,117,0.3);
-}
-
-#info{
-    margin-top:15px;
-    padding:15px;
-    background:#fff0f5;
-    border-radius:15px;
-    min-height:60px;
-    line-height:1.7;
+    box-shadow:0 0 8px rgba(255,45,117,0.3);
 }
 
 .member{
-    background:white;
-    border-left:5px solid #ff2d75;
+    background:#fff0f5;
     padding:12px;
-    margin-bottom:12px;
     border-radius:12px;
+    margin-top:10px;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
 <h1>🌸 CHECK HOA NB 🌸</h1>
 
-<input id="search" placeholder="Nhập tên hoa hoặc thành viên..." onkeyup="searchData()">
+<input id="search" placeholder="Nhập tên thành viên hoặc hoa..." onkeyup="searchData()">
 
-<div id="info">Nhập để tìm kiếm...</div>
+<div id="result">Nhập để tìm kiếm...</div>
 
 </div>
 
@@ -82,144 +69,139 @@ input:focus{
 const members = [
 
 {
-member:"Juli",
+name:"Juli",
 flowers:["Hạc Gửi Ngân Hà","Dạ Yến Thảo Xanh","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"]
 },
 
 {
-member:"Mộc Ma",
+name:"Mộc Ma",
 flowers:["Dạ Yến Thảo Lam","Ngôi Sao Bethlehem","Hồng Lenten Hồng","Tường Vi Vàng","Gấu Bông","Bụp Hồng Cận Hồng","Đông Trùng Thông Vàng","Địa Lan Trắng","Hoa Poppy Himalaya Vàng","Holly Vòng Xanh","Mạn Châu Sa","Gừng Sen Ban Mai"]
 },
 
 {
-member:"Lê Xuân Phong",
+name:"Lê Xuân Phong",
 flowers:["Holly Vòng Xanh","Bụp Hồng Cận Hồng","Mộc Hương Trắng","Hoa Anh Thảo Xanh","Dạ Yến Thảo Lam"]
 },
 
 {
-member:"Bongbong",
+name:"Bongbong",
 flowers:["Hoa Poppy Himalaya Xanh","Gấu Bông","Lạp Mai Đỏ","Dạ Yến Thảo Xanh","Nhài Nhật","Trái Tim Đá Quý","Holly Vòng Xanh","Bụp Hồng Cận Hồng"]
 },
 
 {
-member:"Taman07",
+name:"Taman07",
 flowers:["Mộc Lan Ngọc Ngà","Phù Dung Tím Hộp Báu","Đông Trùng Thông Vàng","Lạp Mai Đỏ","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Dạ Yến Thảo Xanh","Hoa Anh Thảo Xanh","Ngôi Sao Bethlehem","Địa Lan Trắng","Tường Vi Vàng"]
 },
 
 {
-member:"Hoàng Yến",
-flowers:["Ngân Hà Chiếu Nhuỵ","Hồng Cecil Phấn","Hạc Gửi Ngân Hà","Hương Hoa Diên Vĩ","Gấu Hoa Hồng","Trái Tim Đá Quý","Dạ Yến Thảo Xanh","Hoa Anh Thảo Hồng","Hoa Anh Thảo Xanh","Lạp Mai Đỏ","Hồng Champagne","Mạn Châu Sa","Hoa Hải Quỳ Trắng","Ngôi Sao Bethlehem","Hoa Hành Tím","Nhài Nhật","Lan Phượng Vĩ Đỏ","Diên Vĩ Đức Trắng Vàng","Hồng Lenten Vàng","Cây Sống Đời Đỏ","Mạch Môn Hồng Phấn","Hoa Poppy Himalaya Vàng","Hải Quỳ Đỏ","Hoa Poppy Cam","Diên Vĩ Đức Hồng Tím","Tuyết Mai Trắng","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"]
+name:"Hoàng Yến",
+flowers:["Ngân Hà Chiếu Nhuỵ","Hồng Cecil Phấn","Hạc Gửi Ngân Hà","Hương Diên Vĩ","Gấu Hoa Hồng","Trái Tim Đá Quý","Dạ Yến Thảo Xanh","Hoa Anh Thảo Hồng","Hoa Anh Thảo Xanh","Lạp Mai Đỏ","Hồng Champagne","Mạn Châu Sa","Hoa Hải Quỳ Trắng","Ngôi Sao Bethlehem","Hoa Hành Tím","Nhài Nhật","Lan Phượng Vĩ Đỏ","Hồng Lenten Vàng","Mạch Môn Hồng Phấn","Hoa Poppy Cam","Tuyết Mai Trắng"]
 },
 
 {
-member:"Củ Cải",
-flowers:["Mộc Lan Ngọc Ngà","Dạ Yến Thảo Xanh","Hoa Anh Thảo Hồng","Hoa Anh Thảo Xanh","Hồng Champagne","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"]
+name:"Củ Cải",
+flowers:["Mộc Lan Ngọc Ngà","Dạ Yến Thảo Xanh","Hoa Anh Thảo Hồng","Hồng Champagne","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"]
 },
 
 {
-member:"xinhxandangiu",
-flowers:["Hoa Mặt Rồng Hồng Phấn","Tường Vi Xanh","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Dạ Yến Thảo Lam","Vạn Tuế Lá Lam","Hải Quỳ Cam","Thược Dược Đỏ","Lay Ơn Tím"]
+name:"xinhxandangiu",
+flowers:["Hoa Mặt Rồng Hồng Phấn","Tường Vi Xanh","Gấu Bông","Holly Vòng Xanh","Dạ Yến Thảo Lam","Vạn Tuế Lá Lam","Hải Quỳ Cam","Thược Dược Đỏ"]
 },
 
 {
-member:"bebymeo",
+name:"bebymeo",
 flowers:["Dạ Yến Thảo Xanh","Lan Vũ Nữ Vàng","Lay Ơn Trắng","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Hồng Lenten Đỏ","San Hô Tím","Gấu Bông","Thược Dược Trắng","Lạp Mai Đỏ","Hồng Champagne"]
 },
 
 {
-member:"Thiện Bảo",
+name:"Thiện Bảo",
 flowers:["Dạ Yến Thảo Xanh","Hồng Champagne","Trái Tim Đá Quý","Hoa Poppy Himalaya Vàng","Mạn Đà La","Mộc Hương Cam","Thược Dược Trắng","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Hoa Anh Thảo Xanh"]
 },
 
 {
-member:"Thư Thư",
+name:"Thư Thư",
 flowers:["Mộc Lan Ngọc Ngà","Hồng Cecil Lam","Cá Heo Xanh","Cá Heo Hồng","Trái Tim Đá Quý","Ngót Nghẻo Hồng Phấn","Lan Vũ Nữ Cam","Trúc Đào Xanh","Tường Vi Hồng","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Mao Lương Vàng Kem","Đông Trùng Thông Tím","Đông Trùng Thông Hồng","San Hô Cam","Hoa Anh Thảo Xanh","Hồng Champagne","Mạn Châu Sa","Ngôi Sao Bethlehem","Vạn Tuế Lá Lam","Hoa Anh Thảo Vàng","Địa Lan Trắng","Mạn Đà La"]
 },
 
 {
-member:"Tiểu Sam",
+name:"Tiểu Sam",
 flowers:["Dạ Yến Thảo Lam","Hồng Champagne","Holly Vòng Xanh","Đăng Tiêu Cam Vàng","Trái Tim Đá Quý","Thược Dược Hồng","Bụp Hồng Cận Hồng","Hoa Bồ Câu Tím","Gừng Sen Ban Mai","Gấu Bông","Tường Vi Hồng"]
 },
 
 {
-member:"Huệ Nhỏ Nhắn",
+name:"Huệ Nhỏ Nhắn",
 flowers:["Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Dạ Yến Thảo Lam","Hoa Anh Thảo Hồng","Hoa Anh Thảo Xanh","Lạp Mai Đỏ","Ngôi Sao Bethlehem","Hoa Phi Yến Tím","Hoa Lộ Vi Trắng","Cúc Thược Dược Cam","Hoa Poppy Himalaya Xanh","Mộc Lan Ngọc Ngà"]
 },
 
 {
-member:"Hồng Mây 1st",
+name:"Hồng Mây 1st",
 flowers:["Mộc Lan Ngọc Ngà","Lạp Mai Hương Phi","Cá Heo Trắng","Phù Dung Cam Hộp Báu","Gấu Hoa Hồng","Trái Tim Đá Quý","Lạp Mai Đỏ","Hồng Champagne","Mạn Châu Sa","Sống Đời Vàng","Hồng Môn Phấn","Hải Quỳ Cam","Mộc Hương Vàng","San Hô Tím","Hoa Hải Quỳ Tím","Poppy Đỏ","Hoa Ông Lão","Cúc Indo Hồng","Phi Yến Lam","Lồng Đèn Tím","Diên Vĩ Đức Kem Đỏ","Lan Vũ Nữ Đỏ","Tuyết Mai Hồng","Tường Vi Xanh","Lay Ơn Tím","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Gừng Sen Hồng Đào","Đông Trùng Thông Vàng","Ngót Nghẻo Hồng Phấn","Tử Kinh Ngoại Tím","Bách Hợp Lồng Đèn"]
 },
 
 {
-member:"Bé Nhím",
+name:"Bé Nhím",
 flowers:["Ngân Hà Chiếu Nhuỵ","Trái Tim Đá Quý","Cừu Bông Ngọt Ngào","Nguyệt Quý Mây Hồng","Hoa Mặt Rồng Hồng Phấn","Hoa Lập Kim Hồng San Hô","Hoa Thuỵ Hương Trắng Tuyết","Đông Trùng Thông Vàng","Loa Kèn Peru Đỏ","Bụp Hồng Cận Hồng","Holly Vòng Xanh","Gấu Bông","Cúc Indo Cam","Hoa Poppy Đỏ","Hoa Hành Tím","Ngôi Sao Bethlehem","Mạn Châu Sa","Hồng Champagne","Lạp Mai Đỏ","Hoa Anh Thảo Xanh","Hoa Anh Thảo Hồng","Dạ Yến Thảo Lam","Hoa Sao Nhái Hồng","Cá Heo Xanh","Phi Yến Hồng"]
 },
 
 {
-member:"Đại Ca H",
+name:"Đại Ca H",
 flowers:[
 "Ngân Hà Chiếu Nhuỵ","Mộc Lan Ngọc Ngà","Hồng Cecil Lam","Trái Tim Mộng Ảo",
 "Đình Hoa Đêm Mộng","Hạnh Nguyệt- Nghỉ Dưới Bóng Hoa","Lạp Mai Linh Lung","Lạp Mai Hương Phi",
 "Cá Heo Trắng","Mẫu Đơn Ánh Xanh","Mưa Bụi Cô Tô","Nguyệt Quý Mây Hồng","Nguyệt Quý Ánh Vàng",
-"Hạc Gửi Ngân Hà","Hương Hoa Diên Vĩ","Hương Lan Đêm","Gấu Hoa Hồng","Cừu Bông Ngọt Ngào",
+"Hạc Gửi Ngân Hà","Hương Diên Vĩ","Hương Lan Đêm","Gấu Hoa Hồng","Cừu Bông Ngọt Ngào",
 "Trái Tim Tìm Mật","Trái Tim Đá Quý","Dạ Yến Thảo Xanh","Hoa Anh Thảo Hồng","Hoa Anh Thảo Xanh",
-"Lạp Mai Đỏ","Hồng Champagne","Mạn Châu Sa","Hoa Hải Quỳ Trắng","San Hô Xanh","Ngôi Sao Bethlehem",
-"Hoa Poppy Himalaya Xanh","Mộc Hương Cam","Hải Quỳ Đỏ","Hoa Poppy Đỏ","Cúc Indo Hồng","Lồng Đèn Tím",
-"Diên Vĩ Đức Kem Đỏ","Mộc Lan Tím","Hoa Sống Đời Hồng","Mạch Môn Sương Trắng","Hoa Sao Nhái Tím",
-"Lan Vũ Nữ Đỏ","Tuyết Mai Hồng","Địa Lan Xanh","Hải Quỳ Trắng","Trúc Đào Xanh","Thược Dược Hồng",
-"Tường Vi Vàng","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"
+"Lạp Mai Đỏ","Hồng Champagne","Mạn Châu Sa","Hoa Hải Quỳ Trắng","San Hô Xanh","Ngôi Sao Bethlehem"
 ]
 },
 
 {
-member:"bánh bèo",
+name:"bánh bèo",
 flowers:["Tường Vi Xanh","Gấu Bông","Holly Vòng Xanh","Hoa Bồ Câu Đỏ","Loa Kèn Peru Xanh",
 "Hoa Thuỵ Hương Vàng Nhạt","Hoa Thuỵ Hương Tím Khói","Hoa Lập Kim Xanh Sẫm","Hoa Lập Kim Vàng Nhạt",
 "Hoa Mặt Rồng Hồng Phấn","Mẫu Đơn Ánh Tím","Phù Dung Hồng Hộp Báu","Nguyệt Quý Ánh Vàng",
 "Nguyệt Quý Sắc Cam","Cừu Bông Ngọt Ngào","Cúc Mẫu Đơn Tím Nho","Dạ Yến Thảo Xanh","Mạn Châu Sa",
-"San Hô Xanh","Phi Yến Lam","Hoa Poppy Cam","Nhài Nhật","Diên Vĩ Đức Hồng Tím","Tuyết Mai Trắng",
-"Hải Đường Hồng","Hoa Loa Kèn Hồng","Rosa Banksiae Hồng","Rosa Banksiae Vàng","Hoa Lộ Vi Hồng",
-"Hoa Loa Kèn Đỏ","Ngôi Sao Bethlehem","Bụp Hồng Cận Hồng","Hoa Loa Kèn Cam","Rosa Banksiae Trắng"]
+"San Hô Xanh","Phi Yến Lam","Hoa Poppy Cam","Nhài Nhật","Diên Vĩ Đức Hồng Tím","Tuyết Mai Trắng"]
 }
 
 ];
 
 function searchData(){
 
-let key=document.getElementById("search").value.toLowerCase().trim();
-let info=document.getElementById("info");
+let key = document.getElementById("search").value.toLowerCase().trim();
+let box = document.getElementById("result");
 
 if(!key){
-info.innerHTML="Nhập tên hoa hoặc thành viên...";
+box.innerHTML = "Nhập để tìm kiếm...";
 return;
 }
 
-for(let m of members){
-if(m.member.toLowerCase().includes(key)){
+// tìm đúng tên
+let found = members.find(m => m.name.toLowerCase() === key);
 
-let html=`<div class="member">👤 <b>${m.member}</b><br><br>`;
+if(found){
+box.innerHTML =
+`<div class="member"><b>👤 ${found.name}</b><br><br>` +
+found.flowers.map(f=>"🌸 "+f).join("<br>") +
+"</div>";
+return;
+}
+
+// tìm theo hoa
+let list = [];
+
+members.forEach(m=>{
 m.flowers.forEach(f=>{
-html+=`🌸 ${f}<br>`;
-});
-html+=`</div>`;
-info.innerHTML=html;
-return;
-}
-}
-
-let result=[];
-for(let m of members){
-for(let f of m.flowers){
 if(f.toLowerCase().includes(key)){
-result.push(m.member);
-break;
+list.push(m.name);
 }
-}
-}
+});
+});
 
-info.innerHTML = result.length
-? "👥 <b>Người sở hữu:</b><br>" + result.join("<br>")
+let unique = [...new Set(list)];
+
+box.innerHTML = unique.length
+? "👥 Người sở hữu:<br>" + unique.join("<br>")
 : "❌ Không tìm thấy";
 }
 
