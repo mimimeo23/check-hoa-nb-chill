@@ -145,18 +145,62 @@ flowers: [
 function timHoa(){
 
 const keyword = document
-.getElementById("search")
+.getElementById(“search”)
 .value
 .trim()
 .toLowerCase();
 
-const info = document.getElementById("info");
+const info = document.getElementById(“info”);
 
-if(keyword === ""){
+if(keyword === “”){
 info.innerHTML =
-"Nhập tên hoa hoặc tên thành viên để tìm kiếm.";
+“Nhập tên hoa hoặc tên thành viên để tìm kiếm.”;
 return;
 }
+
+// Tìm thành viên
+for(const member of members){
+
+if(member.member.toLowerCase().includes(keyword)){
+
+info.innerHTML =
+“👤 “ + member.member + “” +
+“Số hoa: “ + member.flowers.length + “” +
+member.flowers.join(””);
+
+return;
+}
+
+}
+
+// Tìm hoa
+let owners = [];
+let flowerName = “”;
+
+for(const member of members){
+
+for(const flower of member.flowers){
+
+if(flower.toLowerCase().includes(keyword)){
+flowerName = flower;
+owners.push(member.member);
+}
+
+}
+
+}
+
+if(owners.length > 0){
+
+info.innerHTML =
+“🌸 “ + flowerName + “” +
+“Những thành viên sở hữu:” +
+owners.join(””);
+
+return;
+}
+
+info.innerHTML = “❌ Không tìm thấy.”;
 
 for(const member of members){
 
