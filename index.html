@@ -134,7 +134,7 @@ flowers: [
 "Gấu Bông",
 "Holly Vòng Xanh",
 "Bụp Hồng Cận Hồng",
-"Dạ Yến Thảo Xanh",
+"Dạ Yến Thảo Lam",
 "Hoa Anh Thảo Xanh",
 "Ngôi Sao Bethlehem",
 "Địa Lan Trắng",
@@ -145,16 +145,16 @@ flowers: [
 function timHoa(){
 
 const keyword = document
-.getElementById(“search”)
+.getElementById("search")
 .value
 .trim()
 .toLowerCase();
 
-const info = document.getElementById(“info”);
+const info = document.getElementById("info");
 
-if(keyword === “”){
+if(keyword === ""){
 info.innerHTML =
-“Nhập tên hoa hoặc tên thành viên để tìm kiếm.”;
+"Nhập tên hoa hoặc tên thành viên để tìm kiếm.";
 return;
 }
 
@@ -164,9 +164,9 @@ for(const member of members){
 if(member.member.toLowerCase().includes(keyword)){
 
 info.innerHTML =
-“👤 “ + member.member + “” +
-“Số hoa: “ + member.flowers.length + “” +
-member.flowers.join(””);
+"<h3>👤 " + member.member + "</h3>" +
+"<p><b>Số hoa:</b> " + member.flowers.length + "</p>" +
+member.flowers.join("<br>");
 
 return;
 }
@@ -175,7 +175,7 @@ return;
 
 // Tìm hoa
 let owners = [];
-let flowerName = “”;
+let flowerName = "";
 
 for(const member of members){
 
@@ -193,15 +193,14 @@ owners.push(member.member);
 if(owners.length > 0){
 
 info.innerHTML =
-“🌸 “ + flowerName + “” +
-“Những thành viên sở hữu:” +
-owners.join(””);
+"<h3>🌸 " + flowerName + "</h3>" +
+"<p><b>Những thành viên sở hữu:</b></p>" +
+owners.join("<br>");
 
 return;
 }
 
-info.innerHTML = “❌ Không tìm thấy.”;
-
+info.innerHTML = "❌ Không tìm thấy.";
 
 }
 
