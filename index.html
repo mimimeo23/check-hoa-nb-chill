@@ -51,10 +51,10 @@ input{
 
 <h1>🌸 HOA NB 🌸</h1>
 
-<input type="text" id="search" placeholder="Nhập tên hoa hoặc thành viên..." onkeyup="timHoa()">
+<input type="text" id="search" placeholder="Nhập tên hoa hoặc thành viên..." onkeyup="timKiem()">
 
 <div id="info">
-Nhập tên hoa hoặc tên thành viên để tìm kiếm.
+Nhập để tìm kiếm.
 </div>
 
 </div>
@@ -116,7 +116,7 @@ flowers: ["Dạ Yến Thảo Lam","Ngôi Sao Bethlehem","Hồng Lenten Hồng","
 },
 {
 member: "Đại Ca H",
-flowers: ["Ngân Hà Chiếu Nhuỵ","Mộc Lan Ngọc Ngà","Hồng Cecil Lam","Trái Tim Đá Quý","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Ngôi Sao Bethlehem","Hương Hoa Diên Vĩ","Cúc Indo Hồng","Hoa Poppy Đỏ","Tường Vi Vàng"]
+flowers: ["Ngân Hà Chiếu Nhuỵ","Mộc Lan Ngọc Ngà","Hồng Cecil Lam","Trái Tim Đá Quý","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng","Ngôi Sao Bethlehem"]
 },
 {
 member: "bánh bèo",
@@ -128,46 +128,47 @@ flowers: ["Holly Vòng Xanh","Bụp Hồng Cận Hồng","Mộc Hương Trắng"
 }
 ];
 
-function timHoa(){
+function timKiem(){
 
-const keyword = document.getElementById("search").value.trim().toLowerCase();
+const key = document.getElementById("search").value.trim().toLowerCase();
 const info = document.getElementById("info");
 
-if(keyword.length < 2){
-info.innerHTML = "Nhập ít nhất 2 ký tự để tìm kiếm.";
+if(key === ""){
+info.innerHTML = "Nhập để tìm kiếm.";
 return;
 }
 
-// tìm thành viên (phải đúng tên)
+/* =========================
+   1. TÌM THEO TÊN THÀNH VIÊN
+========================= */
 for(const m of members){
-if(m.member.toLowerCase() === keyword){
+if(m.member.toLowerCase() === key){
 info.innerHTML =
 "👤 <b>" + m.member + "</b><br><br>" +
 "📌 Số hoa: " + m.flowers.length + "<br><br>" +
-m.flowers.join("<br>");
+"🌸 " + m.flowers.join("<br>");
 return;
 }
 }
 
-// tìm hoa (ra tất cả người)
-let result = [];
+/* =========================
+   2. TÌM THEO TÊN HOA
+========================= */
+let owners = [];
 
 for(const m of members){
 for(const f of m.flowers){
-if(f.toLowerCase().includes(keyword)){
-result.push(m.member);
+if(f.toLowerCase().includes(key)){
+owners.push(m.member);
 break;
 }
 }
 }
 
-if(result.length > 0){
+if(owners.length > 0){
 info.innerHTML =
-"🌸 <b>Người sở hữu:</b><br>" +result.map(name => {
-let m = members.find(x => x.member === name);
-return name + " (" + m.flowers.length + " hoa)";
-}).join("<br>");
-
+"🌸 <b>Người có hoa:</b><br>" +
+[...new Set(owners)].join("<br>");
 return;
 }
 
