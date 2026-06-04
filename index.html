@@ -1,35 +1,110 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Check Hoa NB</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoa NB</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#ffd6e0;
+    padding:20px;
+}
+
+.box{
+    background:white;
+    max-width:600px;
+    margin:auto;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+h1{
+    text-align:center;
+    color:#ff4f87;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:15px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+li{
+    cursor:pointer;
+    margin:10px 0;
+    font-size:20px;
+}
+
+li:hover{
+    color:#ff4f87;
+}
+
+#info{
+    margin-top:20px;
+    padding:15px;
+    background:#fff0f5;
+    border-radius:10px;
+}
+</style>
 </head>
 
-<body style="margin:0; font-family: Arial; background: linear-gradient(135deg,#ffdde1,#ee9ca7);">
+<body>
 
-  <div style="max-width:500px; margin:40px auto; background:white; padding:20px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
+<div class="box">
 
-    <h1 style="text-align:center; color:#ff4d6d;">🌸 Hoa NB</h1>
+<h1>🌸 Hoa NB 🌸</h1>
 
-    <h2>👥 Thành viên</h2>
-    <ul style="line-height:1.8; font-size:16px;">
-      <li>Cún</li>
-      <li>Thành viên 1</li>
-      <li>Thành viên 2</li>
-      <li>Thành viên 3</li>
-      <li>Thành viên 4</li>
-    </ul>
+<input
+type="text"
+id="search"
+placeholder="Tìm tên hoa..."
+onkeyup="timHoa()">
 
-    <h2>🌼 Danh sách hoa</h2>
-    <ul style="line-height:1.8; font-size:16px;">
-      <li>Hoa hồng</li>
-      <li>Hoa cúc</li>
-      <li>Hoa ly</li>
-      <li>Hoa hướng dương</li>
-      <li>Hoa lan</li>
-    </ul>
+<h2>🌼 Danh sách hoa</h2>
 
-  </div>
+<ul id="hoaList">
+<li onclick="hienThongTin('Hoa hồng là biểu tượng của tình yêu.')">🌹 Hoa hồng</li>
+
+<li onclick="hienThongTin('Hoa cúc tượng trưng cho sự trường thọ.')">🌼 Hoa cúc</li>
+
+<li onclick="hienThongTin('Hoa ly mang ý nghĩa thanh cao.')">🤍 Hoa ly</li>
+
+<li onclick="hienThongTin('Hoa hướng dương luôn hướng về mặt trời.')">🌻 Hoa hướng dương</li>
+
+<li onclick="hienThongTin('Hoa lan tượng trưng cho sự sang trọng.')">💜 Hoa lan</li>
+</ul>
+
+<div id="info">
+Bấm vào tên hoa để xem thông tin.
+</div>
+
+</div>
+
+<script>
+
+function hienThongTin(noidung){
+document.getElementById("info").innerHTML=noidung;
+}
+
+function timHoa(){
+let input=document.getElementById("search").value.toLowerCase();
+let li=document.querySelectorAll("#hoaList li");
+
+li.forEach(function(item){
+if(item.textContent.toLowerCase().includes(input)){
+item.style.display="";
+}else{
+item.style.display="none";
+}
+});
+}
+
+</script>
 
 </body>
 </html>
