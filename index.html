@@ -72,152 +72,77 @@ Nhập tên hoa hoặc tên thành viên để tìm kiếm.
 </div>
 
 <script>
-
 const members = [
 {
 member: "Thư Thư",
 flowers: [
-"Mộc Lan Ngọc Ngà",
-"Hồng Cecil Lam",
-"Cá Heo Xanh",
-"Cá Heo Hồng",
-"Trái Tim Đá Quý",
-"Ngót Nghẻo Hồng Phấn",
-"Lan Vũ Nữ Cam",
-"Trúc Đào Xanh",
-"Tường Vi Hồng",
-"Gấu Bông",
-"Holly Vòng Xanh",
-"Bụp Hồng Cận Hồng",
-"Mao Lương Vàng Kem",
-"Đông Trùng Thông Tím",
-"Đông Trùng Thông Hồng",
-"San Hô Cam",
-"Hoa Hải Quỳ Hồng",
-"Hoa Poppy Tím",
-"Cúc Indo Cam",
-"Phi Yến Hồng",
-"Lồng Đèn Cam",
-"Mạch Môn Sương Trắng",
-"Hoa Sao Nhái Tím",
-"Hoa Sao Nhái Hồng",
-"Dạ Yến Thảo Lam",
-"Hoa Anh Thảo Xanh",
-"Hồng Champagne",
-"Mạn Châu Sa",
-"Ngôi Sao Bethlehem",
-"Vạn Tuế Lá Lam",
-"Hoa Anh Thảo Vàng",
-"Địa Lan Trắng",
-"Mạn Đà La"
+"Mộc Lan Ngọc Ngà","Hồng Cecil Lam","Cá Heo Xanh","Cá Heo Hồng",
+"Trái Tim Đá Quý","Ngót Nghẻo Hồng Phấn","Lan Vũ Nữ Cam","Trúc Đào Xanh",
+"Tường Vi Hồng","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng"
 ]
 },
 {
 member: "Bongbong",
 flowers: [
-"Hoa Poppy Himalaya Xanh",
-"Gấu Bông",
-"Lạp Mai Đỏ",
-"Dạ Yến Thảo Lam",
-"Nhài Nhật",
-"Trái Tim Đá Quý",
-"Holly Vòng Xanh",
-"Bụp Hồng Cận Hồng"
+"Hoa Poppy Himalaya Xanh","Gấu Bông","Lạp Mai Đỏ","Dạ Yến Thảo Lam",
+"Nhài Nhật","Trái Tim Đá Quý","Holly Vòng Xanh","Bụp Hồng Cận Hồng"
 ]
 },
 {
 member: "Taman07",
 flowers: [
-"Mộc Lan Ngọc Ngà",
-"Phù Dung Tím Hộp Báu",
-"Đông Trùng Thông Vàng",
-"Lạp Mai Đỏ",
-"Gấu Bông",
-
-"Holly Vòng Xanh",
-
-"Bụp Hồng Cận Hồng",
-
-"Dạ Yến Thảo Lam",
-
-"Hoa Anh Thảo Xanh",
-
-"Ngôi Sao Bethlehem",
-
-"Địa Lan Trắng",
-
-"Tường Vi Vàng"
-
+"Mộc Lan Ngọc Ngà","Phù Dung Tím Hộp Báu","Đông Trùng Thông Vàng",
+"Lạp Mai Đỏ","Gấu Bông","Holly Vòng Xanh","Bụp Hồng Cận Hồng",
+"Dạ Yến Thảo Lam","Hoa Anh Thảo Xanh","Ngôi Sao Bethlehem",
+"Địa Lan Trắng","Tường Vi Vàng"
 ]
-
 }
-
 ];
 
-
 function timHoa(){
-
-const keyword = document
-.getElementById("search")
-.value
-.trim()
-.toLowerCase();
-
+const keyword = document.getElementById("search").value.trim().toLowerCase();
 const info = document.getElementById("info");
 
 if(keyword === ""){
-info.innerHTML =
-"Nhập tên hoa hoặc tên thành viên để tìm kiếm.";
+info.innerHTML = "Nhập tên hoa hoặc tên thành viên để tìm kiếm.";
 return;
 }
 
-// Tìm thành viên
-for(const member of members){
-
-if(member.member.toLowerCase().includes(keyword)){
-
+// tìm thành viên
+for(const m of members){
+if(m.member.toLowerCase().includes(keyword)){
 info.innerHTML =
-"<h3>👤 " + member.member + "</h3>" +
-"<p><b>Số hoa:</b> " + member.flowers.length + "</p>" +
-member.flowers.join("<br>");
+"👤 <b>" + m.member + "</b><br><br>" +
+"📌 Số hoa: " + m.flowers.length + "<br><br>" +
+m.flowers.join("<br>");
+return;
+}
+}
 
+// tìm hoa
+let result = [];
+
+for(const m of members){
+for(const f of m.flowers){
+if(f.toLowerCase().includes(keyword)){
+result.push(m.member);
+break;
+}
+}
+}
+
+if(result.length > 0){
+info.innerHTML =
+"🌸 <b>Kết quả:</b><br>" +
+result.join("<br>");
 return;
 }
 
+info.innerHTML = "❌ Không tìm thấy";
 }
-
-// Tìm hoa
-let owners = [];
-let flowerName = "";
-
-for(const member of members){
-
-for(const flower of member.flowers){
-
-if(flower.toLowerCase().includes(keyword)){
-flowerName = flower;
-owners.push(member.member);
-}
-
-}
-
-}
-
-if(owners.length > 0){
-
-info.innerHTML =
-"<h3>🌸 " + flowerName + "</h3>" +
-"<p><b>Những thành viên sở hữu:</b></p>" +
-owners.join("<br>");
-
-return;
-}
-
-info.innerHTML = "❌ Không tìm thấy.";
-
-}
-
 </script>
+}
+
 
 </body>
 </html>
