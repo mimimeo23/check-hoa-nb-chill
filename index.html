@@ -163,8 +163,11 @@ break;
 
 if(result.length > 0){
 info.innerHTML =
-"🌸 <b>Người sở hữu:</b><br>" +
-result.join("<br>");
+"🌸 <b>Người sở hữu:</b><br>" +result.map(name => {
+let m = members.find(x => x.member === name);
+return name + " (" + m.flowers.length + " hoa)";
+}).join("<br>");
+
 return;
 }
 
