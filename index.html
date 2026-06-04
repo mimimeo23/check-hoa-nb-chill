@@ -87,21 +87,27 @@ Bấm vào tên hoa để xem thông tin.
 
 <script>
 
-function hienThongTin(noidung){
-document.getElementById("info").innerHTML=noidung;
-}
+const dsHoa = {
+"hoa hồng":"🌹 Hoa hồng<br>👤 Thành viên: Cún",
+"hoa cúc":"🌼 Hoa cúc<br>👤 Thành viên: Lan",
+"hoa ly":"🤍 Hoa ly<br>👤 Thành viên: Mai",
+"hoa hướng dương":"🌻 Hoa hướng dương<br>👤 Thành viên: An",
+"hoa lan":"💜 Hoa lan<br>👤 Thành viên: Ngọc"
+};
 
 function timHoa(){
-let input=document.getElementById("search").value.toLowerCase();
-let li=document.querySelectorAll("#hoaList li");
+let input=document.getElementById("search").value.toLowerCase().trim();
+let info=document.getElementById("info");
 
-li.forEach(function(item){
-if(item.textContent.toLowerCase().includes(input)){
-item.style.display="";
+if(dsHoa[input]){
+info.innerHTML=dsHoa[input];
 }else{
-item.style.display="none";
+info.innerHTML="Không tìm thấy hoa hoặc thành viên";
 }
-});
+}
+
+function hienThongTin(noidung){
+document.getElementById("info").innerHTML=noidung;
 }
 
 </script>
