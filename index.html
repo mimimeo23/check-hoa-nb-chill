@@ -86,33 +86,73 @@ Nhập tên hoa hoặc bấm vào tên hoa để xem thành viên.
 </div>
 
 <script>
+const members = [
+  {
+    member: "Thư Thư",
+    flowers: [
+      "Mộc Lan Ngọc Ngà",
+      "Hồng Cecil Lam",
+      "Cá Heo Xanh",
+      "Cá Heo Hồng",
+      "Trái Tim Đá Quý",
+      "Ngót Nghẻo Hồng Phấn",
+      "Lan Vũ Nữ Cam",
+      "Trúc Đào Xanh",
+      "Tường Vi Hồng",
+      "Gấu Bông",
+      "Holly Vòng Xanh",
+      "Bụp Hồng Cận Hồng",
+      "Mao Lương Vàng Kem",
+      "Đông Trùng Thông Tím",
+      "Đông Trùng Thông Hồng",
+      "San Hô Cam",
+      "Hoa Hải Quỳ Hồng",
+      "Hoa Poppy Tím",
+      "Cúc Indo Cam",
+      "Phi Yến Hồng",
+      "Lồng Đèn Cam",
+      "Mạch Môn Sương Trắng",
+      "Hoa Sao Nhái Tím",
+      "Hoa Sao Nhái Hồng",
+      "Dạ Yến Thảo Lam",
+      "Hoa Anh Thảo Xanh",
+      "Hồng Champagne",
+      "Mạn Châu Sa",
+      "Ngôi Sao Bethlehem",
+      "Vạn Tuế Lá Lam",
+      "Hoa Anh Thảo Vàng",
+      "Địa Lan Trắng",
+      "Mạn Đà La"
+    ]
+  }
+];
 
-const dsHoa = {
-"hoa hồng":"🌹 Hoa hồng<br>👤 Thành viên: Cún",
-"hoa cúc":"🌼 Hoa cúc<br>👤 Thành viên: Lan",
-"hoa ly":"🤍 Hoa ly<br>👤 Thành viên: Mai",
-"hoa hướng dương":"🌻 Hoa hướng dương<br>👤 Thành viên: An",
-"hoa lan":"💜 Hoa lan<br>👤 Thành viên: Ngọc"
-};
+function searchFlower() {
+  const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+  const result = document.getElementById("result");
 
-function timHoa(){
-let text = document.getElementById("search").value.toLowerCase().trim();
+  for (const member of members) {
 
-if(dsHoa[text]){
-document.getElementById("info").innerHTML = dsHoa[text];
-}else if(text === ""){
-document.getElementById("info").innerHTML =
-"Nhập tên hoa hoặc bấm vào tên hoa để xem thành viên.";
-}else{
-document.getElementById("info").innerHTML =
-"❌ Không tìm thấy hoa";
+    if (member.member.toLowerCase().includes(keyword)) {
+      result.innerHTML =
+        "<h2>" + member.member + "</h2>" +
+        "<p><b>Số hoa:</b> " + member.flowers.length + "</p>" +
+        "<p>" + member.flowers.join(", ") + "</p>";
+      return;
+    }
+
+    for (const flower of member.flowers) {
+      if (flower.toLowerCase().includes(keyword)) {
+        result.innerHTML =
+          "<h2>" + flower + "</h2>" +
+          "<p><b>Thành viên sở hữu:</b> " + member.member + "</p>";
+        return;
+      }
+    }
+  }
+
+  result.innerHTML = "Không tìm thấy!";
 }
-}
-
-function hienThongTin(noidung){
-document.getElementById("info").innerHTML = noidung;
-}
-
 </script>
 
 </body>
