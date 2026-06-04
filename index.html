@@ -202,33 +202,7 @@ return;
 
 info.innerHTML = “❌ Không tìm thấy.”;
 
-for(const member of members){
 
-if(member.member.toLowerCase().includes(keyword)){
-info.innerHTML =
-"<h3>👤 " + member.member + "</h3>" +
-"<p><b>Số hoa:</b> " + member.flowers.length + "</p>" +
-"<div class='flower-list'>" +
-member.flowers.join("<br>") +
-"</div>";
-return;
-}
-
-for(const flower of member.flowers){
-
-if(flower.toLowerCase().includes(keyword)){
-info.innerHTML =
-"<h3>🌸 " + flower + "</h3>" +
-"<p><b>Thành viên sở hữu:</b> " +
-member.member +
-"</p>";
-return;
-}
-
-}
-}
-
-info.innerHTML = "❌ Không tìm thấy.";
 }
 
 </script>
